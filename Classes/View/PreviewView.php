@@ -58,7 +58,7 @@ class PreviewView {
 						</tbody>
 					</table>',
 		'gridColumn' => '<td colspan="%s" rowspan="%s" style="%s">
-								<div data-colpos="%s" class="t3js-sortable t3js-sortable-lang t3js-sortable-lang-%s t3-page-ce-wrapper ui-sortable" data-language-uid="%s">
+								<div data-max-elements="1" data-colpos="%s" class="t3js-sortable t3js-sortable-lang t3js-sortable-lang-%s t3-page-ce-wrapper ui-sortable" data-language-uid="%s">
 									<div class="fce-header t3-row-header t3-page-colHeader t3-page-colHeader-label">
 										<div>%s</div>
 									</div>

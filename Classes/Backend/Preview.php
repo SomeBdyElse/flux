@@ -148,9 +148,11 @@ class Preview implements PageLayoutViewDrawItemHookInterface {
 			$pageRenderer->addRequireJsConfiguration(array(
 				'paths' => array(
 					'FluidTypo3/Flux/DragDrop'     => $fullJsPath . 'DragDrop',
+                    'FluidTypo3/Flux/MaxElements'     => $fullJsPath . 'MaxElements',
 				),
 			));
 			$pageRenderer->loadRequireJsModule('FluidTypo3/Flux/DragDrop');
+            $pageRenderer->loadRequireJsModule('FluidTypo3/Flux/MaxElements');
 
 			// This is necessary for fluxCollapse.js
 			$pageRenderer->loadExtJS();

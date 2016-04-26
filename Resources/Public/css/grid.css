@@ -33,3 +33,7 @@ td.spacer { width: 8px !important; max-width: 8px !important; height: 8px; }
 .t3-page-lang-column .flux-grid td {
 	min-width: 100% !important;
 }
+
+.full .t3-page-ce-dropzone-possible {
+	display: none;
+}

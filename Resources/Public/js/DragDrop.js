@@ -78,15 +78,28 @@ define(['jquery', 'jquery-ui/sortable'], function ($) {
         // show all dropzones, except the own
         $helper.find(DragDrop.dropZoneAvailableIdentifier).removeClass('active');
         $container.parents(DragDrop.columnHolderIdentifier).find(DragDrop.addContentIdentifier).hide();
+
+        $item.addClass('dragged-item');
+        $helper.addClass('dragged-helper');
+        $container.trigger('childrenChanged');
     };
 
     /**
      * Called when the sorting stopped
      */
     DragDrop.onSortStop = function($container, ui) {
+        $(ui.item).removeClass('dragged-item');
+        $(ui.helper).removeClass('dragged-helper');
+
         var $allColumns = $container.parents(DragDrop.columnHolderIdentifier);
-        $allColumns.find(DragDrop.addContentIdentifier).show();
+        $allColumns
+            .find(DragDrop.addContentIdentifier)
+            .not('.full ' + DragDrop.addContentIdentifier)
+            .show()
+        ;
         $allColumns.find(DragDrop.dropZoneAvailableIdentifier + '.active').removeClass('active');
+
+        $container.trigger('childrenChanged');
     };
 
     /**
@@ -107,7 +120,15 @@ define(['jquery', 'jquery-ui/sortable'], function ($) {
             $prev = $subject.prevUntil(':visible').last().prev();
 
         }
-        $container.parents(DragDrop.columnHolderIdentifier).find(droppableClassName).find(DragDrop.contentIdentifier + ':not(.ui-sortable-helper)').not($prev).find(DragDrop.dropZoneAvailableIdentifier).addClass('active');
+
+        $container.parents(DragDrop.columnHolderIdentifier)
+            .find(droppableClassName)
+            .find(DragDrop.contentIdentifier + ':not(.ui-sortable-helper)')
+            .not($prev)
+            .find(DragDrop.dropZoneAvailableIdentifier)
+            .not($('.full ' + DragDrop.dropZoneAvailableIdentifier))
+            .addClass('active')
+        ;
         $prev.find('> '+DragDrop.dropZoneAvailableIdentifier + '.active').removeClass('active');
         $helper.find(DragDrop.dropZoneAvailableIdentifier + '.active').removeClass('active');
     };
@@ -144,6 +165,8 @@ define(['jquery', 'jquery-ui/sortable'], function ($) {
             DataHandler.process(parameters).done(function(result) {
                 if (result.hasErrors) {
                     $container.sortable('cancel');
+                } else {
+                    $('.t3-page-ce-wrapper[data-max-elements]').trigger('childrenChanged');
                 }
             });
         });
